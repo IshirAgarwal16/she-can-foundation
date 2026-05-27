@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us – She Can Foundation</title>
+  <link rel="stylesheet" href="../css/main.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400&family=Fraunces:ital,wght@0,300;0,600;0,800;1,300;1,600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --rose: #c2185b; --rose-lt: #f8bbd0; --rose-dk: #880e4f;
+      --sand: #fdf6ee; --warm: #fff8f2;
+      --text: #1c1412; --muted: #6b5c57; --border: #f0e0d6; --gold: #e8a045;
+    }
+    body { font-family: 'DM Sans', sans-serif; background: var(--warm); color: var(--text); overflow-x: hidden; }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.1rem 5%;
+      background: rgba(255,248,242,0.9); backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      transition: box-shadow .3s;
+    }
+    nav.scrolled { box-shadow: 0 4px 24px rgba(194,24,91,.08); }
+    .nav-logo { font-family: 'Fraunces', serif; font-size: 1.45rem; font-weight: 800; color: var(--rose-dk); text-decoration: none; letter-spacing: -.02em; }
+    .nav-logo span { color: var(--gold); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { font-size: .9rem; font-weight: 500; color: var(--muted); text-decoration: none; transition: color .2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--rose); }
+    .nav-cta { background: var(--rose); color: #fff !important; padding: .5rem 1.3rem; border-radius: 2rem; font-weight: 600 !important; transition: background .2s, transform .2s !important; }
+    .nav-cta:hover { background: var(--rose-dk) !important; transform: translateY(-1px); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .hamburger span { width: 24px; height: 2px; background: var(--rose); border-radius: 2px; }
+
+    /* PAGE HERO */
+    .page-hero {
+      padding: 9rem 5% 5rem;
+      background: var(--sand);
+      position: relative; overflow: hidden;
+    }
+    .page-hero::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0; height: 4px;
+      background: linear-gradient(90deg, var(--rose), var(--gold), var(--rose));
+    }
+    .page-hero-inner { max-width: 700px; }
+    .section-label { display: inline-block; font-size: .75rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--rose); margin-bottom: 1rem; }
+    .page-hero h1 { font-family: 'Fraunces', serif; font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 800; line-height: 1.1; letter-spacing: -.03em; color: var(--text); }
+    .page-hero h1 em { font-style: italic; color: var(--rose); }
+    .page-hero p { font-size: 1.1rem; line-height: 1.75; color: var(--muted); margin-top: 1.2rem; max-width: 560px; }
+
+    /* MISSION */
+    .mission { padding: 7rem 5%; background: var(--warm); }
+    .mission-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+    .mission h2 { font-family: 'Fraunces', serif; font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 800; letter-spacing: -.02em; color: var(--text); margin-bottom: 1.2rem; }
+    .mission h2 em { font-style: italic; color: var(--rose); }
+    .mission p { font-size: 1rem; line-height: 1.8; color: var(--muted); margin-bottom: 1rem; }
+    .mission-visual { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .mission-card { background: #fff; border-radius: 1.5rem; padding: 1.8rem; border: 1px solid var(--border); transition: transform .3s, box-shadow .3s; }
+    .mission-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(194,24,91,.1); }
+    .mission-card.tall { grid-row: span 2; background: var(--rose); display: flex; flex-direction: column; justify-content: flex-end; }
+    .mission-card.tall .mc-title, .mission-card.tall .mc-text { color: #fff; }
+    .mission-card.tall .mc-text { color: rgba(255,255,255,.8); }
+    .mc-icon { font-size: 2rem; margin-bottom: .8rem; }
+    .mc-title { font-family: 'Fraunces', serif; font-size: 1.1rem; font-weight: 700; color: var(--text); margin-bottom: .4rem; }
+    .mc-text { font-size: .85rem; color: var(--muted); line-height: 1.5; }
+
+    /* VALUES */
+    .values { padding: 7rem 5%; background: var(--sand); }
+    .values-inner { max-width: 1200px; margin: 0 auto; }
+    .values-header { text-align: center; margin-bottom: 4rem; }
+    .values h2 { font-family: 'Fraunces', serif; font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 800; letter-spacing: -.02em; color: var(--text); }
+    .values h2 em { font-style: italic; color: var(--rose); }
+    .values-sub { font-size: 1rem; color: var(--muted); margin-top: .8rem; }
+    .values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .value-card { background: #fff; border-radius: 1.5rem; padding: 2rem; border: 1px solid var(--border); transition: transform .3s, box-shadow .3s; position: relative; overflow: hidden; }
+    .value-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--rose), var(--gold)); transform: scaleX(0); transform-origin: left; transition: transform .4s; }
+    .value-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(194,24,91,.1); }
+    .value-card:hover::before { transform: scaleX(1); }
+    .value-num { font-family: 'Fraunces', serif; font-size: 3rem; font-weight: 800; color: var(--rose-lt); line-height: 1; margin-bottom: .5rem; }
+    .value-title { font-size: 1.05rem; font-weight: 700; color: var(--text); margin-bottom: .6rem; }
+    .value-text { font-size: .88rem; color: var(--muted); line-height: 1.6; }
+
+    /* JOURNEY */
+    .journey { padding: 7rem 5%; background: var(--warm); }
+    .journey-inner { max-width: 900px; margin: 0 auto; }
+    .journey-header { text-align: center; margin-bottom: 4rem; }
+    .journey h2 { font-family: 'Fraunces', serif; font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 800; letter-spacing: -.02em; color: var(--text); }
+    .journey h2 em { font-style: italic; color: var(--rose); }
+
+    .timeline { position: relative; }
+    .timeline::before { content: ''; position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; background: var(--border); transform: translateX(-50%); }
+
+    .tl-item { display: grid; grid-template-columns: 1fr 60px 1fr; gap: 1rem; margin-bottom: 3rem; align-items: center; }
+    .tl-item:nth-child(even) .tl-content { order: 3; }
+    .tl-item:nth-child(even) .tl-empty { order: 1; }
+    .tl-dot { width: 48px; height: 48px; border-radius: 50%; background: var(--rose); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; margin: 0 auto; position: relative; z-index: 2; box-shadow: 0 0 0 6px var(--warm); }
+    .tl-content { background: #fff; border-radius: 1.2rem; padding: 1.5rem; border: 1px solid var(--border); }
+    .tl-year { font-family: 'Fraunces', serif; font-size: .85rem; font-weight: 700; color: var(--rose); margin-bottom: .4rem; }
+    .tl-title { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: .4rem; }
+    .tl-text { font-size: .85rem; color: var(--muted); line-height: 1.5; }
+    .tl-empty {}
+
+    /* TEAM */
+    .team { padding: 7rem 5%; background: var(--sand); }
+    .team-inner { max-width: 1200px; margin: 0 auto; }
+    .team-header { margin-bottom: 3rem; }
+    .team h2 { font-family: 'Fraunces', serif; font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 800; letter-spacing: -.02em; color: var(--text); }
+    .team h2 em { font-style: italic; color: var(--rose); }
+    .team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+    .team-card { background: #fff; border-radius: 1.5rem; padding: 1.8rem; border: 1px solid var(--border); text-align: center; transition: transform .3s, box-shadow .3s; }
+    .team-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(194,24,91,.1); }
+    .team-avatar { width: 72px; height: 72px; border-radius: 50%; background: var(--rose-lt); display: flex; align-items: center; justify-content: center; font-size: 2rem; margin: 0 auto 1rem; }
+    .team-name { font-size: 1rem; font-weight: 700; color: var(--text); }
+    .team-role { font-size: .8rem; color: var(--rose); margin-top: .25rem; font-weight: 600; }
+    .team-bio { font-size: .82rem; color: var(--muted); margin-top: .6rem; line-height: 1.5; }
+
+    /* CTA */
+    .cta-section { padding: 7rem 5%; background: var(--rose-dk); position: relative; overflow: hidden; text-align: center; }
+    .cta-section::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 80% at 50% 50%, rgba(232,160,69,.15) 0%, transparent 70%); }
+    .cta-section h2 { font-family: 'Fraunces', serif; font-size: clamp(2.2rem, 4vw, 3.5rem); font-weight: 800; color: #fff; letter-spacing: -.02em; position: relative; }
+    .cta-section h2 em { font-style: italic; color: var(--gold); }
+    .cta-section p { font-size: 1.1rem; color: rgba(255,255,255,.75); margin: 1.2rem auto 2.5rem; max-width: 520px; position: relative; }
+    .cta-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; position: relative; }
+    .btn-white { background: #fff; color: var(--rose-dk); padding: .9rem 2.2rem; border-radius: 2rem; font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 700; text-decoration: none; transition: transform .2s, box-shadow .2s; box-shadow: 0 4px 20px rgba(0,0,0,.15); }
+    .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,0,0,.2); }
+    .btn-outline-white { background: transparent; color: #fff; border: 2px solid rgba(255,255,255,.4); padding: .9rem 2.2rem; border-radius: 2rem; font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 600; text-decoration: none; transition: border-color .2s, transform .2s; }
+    .btn-outline-white:hover { border-color: #fff; transform: translateY(-2px); }
+
+    footer { background: var(--text); padding: 4rem 5% 2rem; color: rgba(255,255,255,.6); }
+    .footer-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 3rem; flex-wrap: wrap; padding-bottom: 3rem; border-bottom: 1px solid rgba(255,255,255,.1); }
+    .footer-brand .logo-text { font-family: 'Fraunces', serif; font-size: 1.4rem; font-weight: 800; color: #fff; letter-spacing: -.02em; }
+    .footer-brand .logo-text span { color: var(--gold); }
+    .footer-brand p { font-size: .85rem; line-height: 1.6; margin-top: .8rem; max-width: 240px; }
+    .footer-links h4 { font-size: .8rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 1rem; }
+    .footer-links ul { list-style: none; display: flex; flex-direction: column; gap: .6rem; }
+    .footer-links a { font-size: .88rem; color: rgba(255,255,255,.6); text-decoration: none; transition: color .2s; }
+    .footer-links a:hover { color: #fff; }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 2rem; flex-wrap: wrap; gap: 1rem; }
+    .footer-bottom p { font-size: .8rem; }
+    .footer-social { display: flex; gap: 1rem; }
+    .social-link { width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,.08); display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,.6); text-decoration: none; font-size: .9rem; transition: background .2s, color .2s; }
+    .social-link:hover { background: var(--rose); color: #fff; }
+
+    .reveal { opacity: 0; transform: translateY(32px); transition: opacity .7s cubic-bezier(.4,0,.2,1), transform .7s cubic-bezier(.4,0,.2,1); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: .1s; }
+    .reveal-delay-2 { transition-delay: .2s; }
+    .reveal-delay-3 { transition-delay: .3s; }
+
+    @media (max-width: 1024px) {
+      .team-grid { grid-template-columns: repeat(2, 1fr); }
+      .values-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 768px) {
+      .mission-inner { grid-template-columns: 1fr; gap: 3rem; }
+      .mission-visual { grid-template-columns: 1fr; }
+      .mission-card.tall { grid-row: auto; }
+      .values-grid { grid-template-columns: 1fr; }
+      .team-grid { grid-template-columns: repeat(2, 1fr); }
+      .timeline::before { left: 24px; }
+      .tl-item { grid-template-columns: 48px 1fr; }
+      .tl-item:nth-child(even) .tl-content { order: 2; }
+      .tl-item:nth-child(even) .tl-empty { display: none; }
+      .tl-empty { display: none; }
+      .tl-dot { margin: 0; }
+      .nav-links { display: none; }
+      .nav-links.open { display: flex; flex-direction: column; position: fixed; top: 64px; left: 0; right: 0; background: rgba(255,248,242,.97); backdrop-filter: blur(14px); padding: 1.5rem 5%; gap: 1.2rem; border-bottom: 1px solid var(--border); }
+      .hamburger { display: flex; }
+    }
+    @media (max-width: 480px) {
+      .team-grid { grid-template-columns: 1fr; }
+      .cta-actions { flex-direction: column; align-items: center; }
+    }
+  </style>
+  
+  <script type="module" async src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Fbusiness14954back.builtwithrocket.new&_be=https%3A%2F%2Fappanalytics.rocket.new&_v=0.1.18"></script>
+  <script type="module" defer src="https://static.rocket.new/rocket-shot.js?v=0.0.2"></script>
+  </head>
+<body>
+
+  <nav id="mainNav">
+    <a href="she_can_home.html" class="nav-logo">She<span>Can</span> Foundation</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="she_can_home.html">Home</a></li>
+      <li><a href="she_can_about.html" class="active">About</a></li>
+      <li><a href="she_can_volunteer.html" class="nav-cta">Join Us</a></li>
+    </ul>
+    <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="page-hero-inner">
+      <span class="section-label">Our Story</span>
+      <h1>We believe every woman <em>already has</em> what it takes.</h1>
+      <p>She Can Foundation exists to remove the obstacles — not to create the strength. That's already there.</p>
+    </div>
+  </section>
+
+  <!-- MISSION -->
+  <section class="mission">
+    <div class="mission-inner">
+      <div class="reveal">
+        <span class="section-label">Our Mission</span>
+        <h2>Removing barriers, <em>not building ceilings.</em></h2>
+        <p>Founded in 2015 by a group of women who had each faced their own version of "you can't," She Can Foundation was built on a radical idea: that the problem was never the women — it was the systems around them.</p>
+        <p>We work in communities where women face the steepest climbs — limited access to education, economic exclusion, and social barriers that tell them to stay small. We show up with resources, mentorship, and an unshakeable belief in their potential.</p>
+        <p>Our programs are designed without judgment, without unrealistic expectations, and with deep respect for each woman's unique journey.</p>
+      </div>
+      <div class="mission-visual reveal reveal-delay-2">
+        <div class="mission-card tall">
+          <div class="mc-icon">🌸</div>
+          <div class="mc-title">Founded with Purpose</div>
+          <div class="mc-text">Born from lived experience, not boardroom theory. Every program reflects real challenges real women face.</div>
+        </div>
+        <div class="mission-card">
+          <div class="mc-icon">🎯</div>
+          <div class="mc-title">Focused Impact</div>
+          <div class="mc-text">We go deep in fewer communities rather than thin across many.</div>
+        </div>
+        <div class="mission-card">
+          <div class="mc-icon">🤝</div>
+          <div class="mc-title">Community-Led</div>
+          <div class="mc-text">Programs shaped by the women we serve, not imposed from outside.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VALUES -->
+  <section class="values">
+    <div class="values-inner">
+      <div class="values-header reveal">
+        <span class="section-label">What We Stand For</span>
+        <h2>Our <em>core values.</em></h2>
+        <p class="values-sub">The principles that guide every decision we make.</p>
+      </div>
+      <div class="values-grid">
+        <div class="value-card reveal reveal-delay-1">
+          <div class="value-num">01</div>
+          <div class="value-title">Dignity First</div>
+          <div class="value-text">Every woman who walks through our doors is treated with complete respect. No judgment, no conditions, no hierarchy of worthiness.</div>
+        </div>
+        <div class="value-card reveal reveal-delay-2">
+          <div class="value-num">02</div>
+          <div class="value-title">Radical Inclusion</div>
+          <div class="value-text">Age, background, education level, language — none of these are barriers to participation. We meet women exactly where they are.</div>
+        </div>
+        <div class="value-card reveal reveal-delay-3">
+          <div class="value-num">03</div>
+          <div class="value-title">Practical Impact</div>
+          <div class="value-text">We measure success in real outcomes: income earned, businesses started, children kept in school, confidence rebuilt.</div>
+        </div>
+        <div class="value-card reveal reveal-delay-1">
+          <div class="value-num">04</div>
+          <div class="value-title">Community Ownership</div>
+          <div class="value-text">We don't parachute in with solutions. We build alongside communities so programs outlast our presence.</div>
+        </div>
+        <div class="value-card reveal reveal-delay-2">
+          <div class="value-num">05</div>
+          <div class="value-title">Transparency</div>
+          <div class="value-text">Every rupee donated is accounted for. We publish our impact reports and financials because trust is earned, not assumed.</div>
+        </div>
+        <div class="value-card reveal reveal-delay-3">
+          <div class="value-num">06</div>
+          <div class="value-title">Joy in the Journey</div>
+          <div class="value-text">Transformation doesn't have to be grim. We celebrate every milestone, every small win, every brave first step.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- JOURNEY -->
+  <section class="journey">
+    <div class="journey-inner">
+      <div class="journey-header reveal">
+        <span class="section-label">Our Journey</span>
+        <h2>Nine years of <em>showing up.</em></h2>
+      </div>
+      <div class="timeline">
+        <div class="tl-item reveal">
+          <div class="tl-content">
+            <div class="tl-year">2015</div>
+            <div class="tl-title">The Beginning</div>
+            <div class="tl-text">Founded by five women in a single room with a shared conviction: that women in their communities deserved better opportunities and a safe space to grow.</div>
+          </div>
+          <div class="tl-dot">🌱</div>
+          <div class="tl-empty"></div>
+        </div>
+        <div class="tl-item reveal reveal-delay-1">
+          <div class="tl-empty"></div>
+          <div class="tl-dot">📚</div>
+          <div class="tl-content">
+            <div class="tl-year">2017</div>
+            <div class="tl-title">First Literacy Program</div>
+            <div class="tl-text">Launched our flagship literacy and numeracy program, reaching 200 women in our first cohort. 94% completed the full course.</div>
+          </div>
+        </div>
+        <div class="tl-item reveal">
+          <div class="tl-content">
+            <div class="tl-year">2019</div>
+            <div class="tl-title">Expanding to 10 Communities</div>
+            <div class="tl-text">Grew from 1 to 10 active communities. Introduced the mentorship program, pairing graduates with newer participants.</div>
+          </div>
+          <div class="tl-dot">🌍</div>
+          <div class="tl-empty"></div>
+        </div>
+        <div class="tl-item reveal reveal-delay-1">
+          <div class="tl-empty"></div>
+          <div class="tl-dot">💻</div>
+          <div class="tl-content">
+            <div class="tl-year">2021</div>
+            <div class="tl-title">Digital Skills Initiative</div>
+            <div class="tl-text">Launched digital literacy training during the pandemic, proving that technology access is a right, not a privilege.</div>
+          </div>
+        </div>
+        <div class="tl-item reveal">
+          <div class="tl-content">
+            <div class="tl-year">2024</div>
+            <div class="tl-title">12,000+ Women Served</div>
+            <div class="tl-text">Crossed a milestone we once only dreamed of. Now operating in 48 communities across 6 states with 320+ active volunteers.</div>
+          </div>
+          <div class="tl-dot">🏆</div>
+          <div class="tl-empty"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <section class="team">
+    <div class="team-inner">
+      <div class="team-header reveal">
+        <span class="section-label">The People Behind It</span>
+        <h2>Led by women, <em>for women.</em></h2>
+      </div>
+      <div class="team-grid">
+        <div class="team-card reveal reveal-delay-1">
+          <div class="team-avatar">👩‍💼</div>
+          <div class="team-name">Kavitha Nair</div>
+          <div class="team-role">Founder & Executive Director</div>
+          <div class="team-bio">Former educator who spent 12 years in rural communities before founding She Can. Believes deeply that education is the most powerful equalizer.</div>
+        </div>
+        <div class="team-card reveal reveal-delay-2">
+          <div class="team-avatar">👩‍🔬</div>
+          <div class="team-name">Dr. Sunita Rao</div>
+          <div class="team-role">Head of Programs</div>
+          <div class="team-bio">Designs all curriculum with a trauma-informed, dignity-first approach. PhD in Community Development from Delhi University.</div>
+        </div>
+        <div class="team-card reveal reveal-delay-3">
+          <div class="team-avatar">👩‍🎨</div>
+          <div class="team-name">Meera Krishnan</div>
+          <div class="team-role">Community Outreach Lead</div>
+          <div class="team-bio">Grew up in one of the communities we now serve. Her lived experience shapes how we build trust and show up authentically.</div>
+        </div>
+        <div class="team-card reveal reveal-delay-3">
+          <div class="team-avatar">👩‍💻</div>
+          <div class="team-name">Zara Ahmed</div>
+          <div class="team-role">Digital Programs Director</div>
+          <div class="team-bio">Tech professional who left a corporate career to bridge the digital divide. Built our entire digital literacy curriculum from scratch.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <h2>Be part of the <em>story.</em></h2>
+    <p>Every volunteer, every donor, every person who shares our mission helps us reach one more woman who needs us.</p>
+    <div class="cta-actions">
+      <a href="she_can_volunteer.html" class="btn-white">Volunteer / Join Us</a>
+      <a href="she_can_home.html" class="btn-outline-white">Back to Home</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="logo-text">She<span>Can</span> Foundation</div>
+        <p>Empowering women and girls to lead, learn, and transform their communities since 2015.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Navigate</h4>
+        <ul>
+          <li><a href="she_can_home.html">Home</a></li>
+          <li><a href="she_can_about.html">About Us</a></li>
+          <li><a href="she_can_volunteer.html">Volunteer</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Get Involved</h4>
+        <ul>
+          <li><a href="she_can_volunteer.html">Join as Volunteer</a></li>
+          <li><a href="she_can_volunteer.html">Partner With Us</a></li>
+          <li><a href="she_can_volunteer.html">Donate</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:hello@shecanfoundation.org">hello@shecanfoundation.org</a></li>
+          <li><a href="#">+1 (800) SHE-CAN-1</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2024 She Can Foundation. All rights reserved. Registered NGO.</p>
+      <div class="footer-social">
+        <a href="#" class="social-link" aria-label="Instagram">📷</a>
+        <a href="#" class="social-link" aria-label="Twitter">🐦</a>
+        <a href="#" class="social-link" aria-label="Facebook">📘</a>
+        <a href="#" class="social-link" aria-label="LinkedIn">💼</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const nav = document.getElementById('mainNav');
+    window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 40); });
+    function toggleMenu() { document.getElementById('navLinks').classList.toggle('open'); }
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    reveals.forEach(el => observer.observe(el));
+  </script>
+<script id="dhws-dataInjector" src="../public/dhws-data-injector.js"></script>
+</body>
+</html>
